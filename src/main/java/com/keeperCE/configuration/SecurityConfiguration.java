@@ -24,8 +24,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
 
 
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private UserService userService;
@@ -35,7 +35,7 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
       auth.userDetailsService(userService)
-      .passwordEncoder(getPasswordEncoder());
+      .passwordEncoder(bCryptPasswordEncoder);
     }
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
