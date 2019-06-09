@@ -18,7 +18,8 @@ public class LoginController {
 
 	 @Autowired
 	    private UserService userService;
-	 @RequestMapping(value="/registration", method = RequestMethod.GET)
+
+	 @GetMapping("/doRegistration")
 	    public ModelAndView registration(){
 	        ModelAndView modelAndView = new ModelAndView();
 	        User user = new User();
