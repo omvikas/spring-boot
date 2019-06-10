@@ -18,14 +18,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfiguration{
 
+	/**
+	 * demo method for building API document
+	 * * @return
+	 */
+
 	@Bean
-	public Docket api() {
-		 return new Docket(DocumentationType.SWAGGER_2)
-				 .select()
-				 .apis(RequestHandlerSelectors.basePackage("com.keeperCE.*"))
-				 .build()
-				 .apiInfo(new 
-						 ApiInfo(null, null, null, null, null, null, null, Collections.EMPTY_LIST));
+		public Docket api() {
+			return new Docket(DocumentationType.SWAGGER_2)
+					.select()
+					.apis(RequestHandlerSelectors.basePackage("com.keeperCE.*"))
+					.build()
+					.apiInfo(new
+							ApiInfo(null, null, null, null, null, null, null, Collections.EMPTY_LIST));
 	}
 	
 }
