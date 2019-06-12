@@ -8,9 +8,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @EnableWebSecurity
 @Configuration
@@ -39,18 +45,18 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().authenticated()
-                .antMatchers("/subscriber").hasAuthority("SUBSCRIBER").anyRequest().authenticated()
+                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN").anyRequest().authenticated()
+                .antMatchers("/subscriber/**").hasAuthority("ROLE_SUBSCRIBER").anyRequest().authenticated()
                 .and()
-                .formLogin()/*.loginPage("/login").successHandler(new AuthenticationSuccessHandler() {
+                .formLogin().successHandler(new AuthenticationSuccessHandler() {
             @Override
-            public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+            public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
                if(authentication.isAuthenticated()){
-                   redirectStrategy.sendRedirect(httpServletRequest,httpServletResponse,"/doRegistration");
+                   redirectStrategy.sendRedirect(httpServletRequest,httpServletResponse,"/admin");
                 }
             }
-        })*/
-                .and().csrf().disable();
+        });
+
 
     }
 
