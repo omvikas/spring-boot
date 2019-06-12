@@ -8,17 +8,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultRedirectStrategy;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @EnableWebSecurity
 @Configuration
@@ -44,18 +36,22 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.headers().frameOptions().disable()
     .and().authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                 .and()
-                .formLogin().successHandler(new AuthenticationSuccessHandler() {
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().authenticated()
+                .antMatchers("/subscriber").hasAuthority("SUBSCRIBER").anyRequest().authenticated()
+                .and()
+                .formLogin()/*.loginPage("/login").successHandler(new AuthenticationSuccessHandler() {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
                if(authentication.isAuthenticated()){
                    redirectStrategy.sendRedirect(httpServletRequest,httpServletResponse,"/doRegistration");
                 }
             }
-        })
+        })*/
                 .and().csrf().disable();
+
     }
 
 //    @Override
@@ -73,8 +69,8 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
 //                .usernameParameter("email")
 //                .passwordParameter("password")
 //                .and().logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/").and().exceptionHandling()
+//                .logoutuestMatcher("/logout"))
+//                .logoutSuccessRequestMatcher(new AntPathReqUrl("/").and().exceptionHandling()
 //                .accessDeniedPage("/access-denied");
 //    }
 

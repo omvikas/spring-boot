@@ -1,22 +1,19 @@
 package com.keeperCE.service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.keeperCE.model.Role;
+import com.keeperCE.model.User;
+import com.keeperCE.repo.RoleRepository;
+import com.keeperCE.repo.UserRepository;
+import lombok.Data;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.keeperCE.model.Role;
-import com.keeperCE.model.User;
-import com.keeperCE.repo.RoleRepository;
-import com.keeperCE.repo.UserRepository;
-
-import lombok.Data;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Optional;
 
 @Data
 @Service("userService")
@@ -42,7 +39,7 @@ public enum Direction{
 	}
 
 	  public User findUserByEmail(String email) {
-	        return userRepository.findByEmail(email);
+	        return userRepository.findByEmail(email).get();
 	    }
 
 	    public User saveUser(User user) {
@@ -58,7 +55,7 @@ public enum Direction{
 
 	@Override
 	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-		Optional<User> optionalUsers = userRepository.findByName(s);
+		Optional<User> optionalUsers = userRepository.findByEmail(s);
 		if(optionalUsers.isPresent()){
 			return optionalUsers.get();
 		}

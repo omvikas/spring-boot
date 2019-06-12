@@ -1,17 +1,17 @@
 package com.keeperCE.Controller;
 
-import javax.validation.Valid;
-
+import com.keeperCE.model.User;
+import com.keeperCE.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.keeperCE.model.User;
-import com.keeperCE.service.UserService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @RestController 	
 public class LoginController {
@@ -19,12 +19,12 @@ public class LoginController {
 	 @Autowired
 	    private UserService userService;
 
-	 @GetMapping("/doRegistration")
+	 @GetMapping("/")
 	    public ModelAndView registration(){
 	        ModelAndView modelAndView = new ModelAndView();
 	        User user = new User();
 	        modelAndView.addObject("user", user);
-	        modelAndView.setViewName("registration");
+	        modelAndView.setViewName("login");
 	        return modelAndView;
 	    }
 
@@ -59,4 +59,23 @@ public class LoginController {
 	        modelAndView.setViewName("admin/home");
 	        return modelAndView;
 	    }
+	    @PostMapping("/admin")
+		public ModelAndView adminLogin(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,BindingResult result){
+		ModelAndView modelAndView = new ModelAndView();
+		User user = new User();
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("registration");
+		return modelAndView;
+
+	}
+	@PostMapping("/login/subscriber")
+	public ModelAndView subscriberLogin(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,BindingResult result){
+		ModelAndView modelAndView = new ModelAndView();
+		User user = new User();
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("registration");
+		return modelAndView;
+
+	}
+
 }
