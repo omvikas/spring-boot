@@ -1,7 +1,8 @@
 package com.keeperCE.service;
 
+import com.keeperCE.model.CustomUser;
 import com.keeperCE.model.Role;
-import com.keeperCE.model.User;
+import com.keeperCE.model.Users;
 import com.keeperCE.repo.RoleRepository;
 import com.keeperCE.repo.UserRepository;
 import lombok.Data;
@@ -19,13 +20,6 @@ import java.util.Optional;
 @Service("userService")
 public class UserService  implements UserDetailsService {
 
-public enum Direction{
-	Instance;
-	public String getMessage(){
-		return "Hello";
-	}
-}
-
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -38,27 +32,22 @@ public enum Direction{
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
-	  public User findUserByEmail(String email) {
-	        return userRepository.findByEmail(email).get();
+	  public Optional<Users> findUserByEmail(String email) {
+	        return userRepository.findByEmail(email);
 	    }
 
-	    public User saveUser(User user) {
+	    public Users saveUser(Users user) {
 	        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-	        user.setActive(1);
+	        user.setIs_active(1);
 	        Role userRole = roleRepository.findByRole("ADMIN");
 	        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 	        userRepository.save(user);
-			Direction instance=Direction.Instance;
-			instance.getMessage();
 	        return user;
 	    }
 
 	@Override
 	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-		Optional<User> optionalUsers = userRepository.findByEmail(s);
-		if(optionalUsers.isPresent()){
-			return optionalUsers.get();
-		}
-	return null;
+		Optional<Users> user=userRepository.findByEmail(s);
+		return  user.map(CustomUser::new).orElseThrow(()->new UsernameNotFoundException(s+ "Not found") );
 	}
 }

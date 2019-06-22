@@ -4,34 +4,149 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Spring Security Tutorial</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+	<title>KeeperCE :: New Era in Clinical Trial Optimization</title>
+<!--	<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/login.js"></script>
+	<script src="JQuery/jquery-ui.min.js"></script>
+	<link th:href="@{/css/redmond/jquery-ui-1.8.17.custom.css}" rel="stylesheet"
+		  type="text/css" />
+
+	<link th:href="@{/css/login.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/css/buttons.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/css/accordion.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+<!--	<link th:href=@{"/css/view_list.css}" rel="stylesheet" type="text/css" />-->
 </head>
 
+
 <body>
-	<form th:action="@{/admin}" method="post">
-		<button class="btn btn-md btn-warning btn-block" type="Submit">Go To Registration Page</button>
-	</form>	
-	
-	<div class="container">
-		<img th:src="@{/images/login.jpg}" class="img-responsive center-block" width="300" height="300" alt="Logo" />
-		<form th:action="@{/login}" method="POST" class="form-signin">
-			<h3 class="form-signin-heading" th:text="Welcome"></h3>
-			<br/>
-			 
-			<input type="text" id="username" name="username"  th:placeholder="Email"
-				class="form-control" /> <br/> 
+
+<!-- wrapper starts here -->
+<div class="wrapper"></div>
+<div class="internal_wrapper">
+	<!-- login_panel with absolute position starts here -->
+	<div class="login_panel_bg">
+		<!--
+<div class="subscribe_area"><a href="#"><img src="images/subscribe_btn.png" alt="subscribe" border="0" /></a></div>
+subscribe ends here -->
+		<!-- login form starts here -->
+		<div class="login_header">Login</div>
+
+		<form id="Login_User_Form" th:action="@{/login}" method="post">
+			<input type="text" id="email" name="email"  th:placeholder="Email"
+				   class="form-control" /> <br/>
 			<input type="password"  th:placeholder="Password"
-				id="password" name="password" class="form-control" /> <br /> 
-				
+				   id="password" name="password" class="form-control" /> <br />
+
 			<div align="center" th:if="${param.error}">
 				<p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
 		</form>
+		<!-- login form ends here -->
+		<div id="signupABC" class="signup_area">
+			<a href="singUp.htm"> <img th:src="@{/images/signup_btn.png}"
+									   alt="signup" border="0" /></a>
+		</div>
 	</div>
+	<!-- login_panel with absolute position ends here -->
+
+	<!-- logo/menu part starts here -->
+	<div class="logo_areas">
+		<!-- logo placeholder here -->
+		<div class="logo">
+			<a href="login.htm"><img th:src="@{/images/logo_login.jpg}" border="0"
+									 alt="logo" /></a>
+		</div>
+		<!-- logo placehorder ends here -->
+		<!-- top_menu starts here -->
+		<div class="top_menu">
+			<!--
+<a href="#" class="logintop_btn"><span>ABOUT US</span></a>
+<a href="#" class="logintop_btn"><span>FAQ'S</span></a>
+<a href="#" class="logintop_btn"><span>CONTACT US</span></a>
+ -->
+		</div>
+		<!-- top menu ends here -->
+	</div>
+	<!-- logo/menu part starts here -->
+	<!-- header part starts here -->
+	<div class="header_area">
+		<img th:src="@{images/header_img.png}" />
+	</div>
+	<!-- header part ends here-->
+
+	<!-- body content starts here -->
+	<div class="body_content">
+		<!-- body left starts here -->
+		<div class="body_left">
+			<div class="page_heading">
+				<img th:src="@{images/site_icon.png}" /> Welcome
+			</div>
+			<div class="page_txt">
+
+
+				<div>
+					<div style="">Voxce&trade;&nbsp;is an affordable SaaS
+						Clinical Trial Management solution providing flexible and
+						configurable tools to help users effectively manage their trials.
+						&nbsp;This subscription based solution allows each subscription
+						owner to configure their own approval types, submission types,
+						create assessment forms and more. &nbsp;</div>
+					<div style="">
+						<br />
+					</div>
+					<div style="">Voxce&trade;&nbsp;features include;</div>
+					<div style="">
+						<br />
+					</div>
+					<div style="">
+						<ul style="">
+							<li style="">Study and protocol setup</li>
+							<li style="">Trial budgeting</li>
+							<li style="">Contract tracking</li>
+							<li style="">Submission tracking</li>
+							<li style="">Site and User Training</li>
+							<li style="">User CV</li>
+							<li style="">Document management&nbsp;</li>
+							<li style="">Recruitment module</li>
+							<li style="">Laboratory library</li>
+							<li style="">Investigator and Site tracking</li>
+							<li style="">Medical License</li>
+							<li style="">Financial Disclosure</li>
+							<li style="">Monitoring Visit Reports</li>
+							<li style="">Form Builder</li>
+							<li style="">CRF assessment and analysis</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- body left ends here -->
+
+		<!-- body right starts here -->
+		<div class="body_right">
+			<div class="toll_bg">
+				<br />
+				<h1>Contact Us:</h1>
+				<a href="mailto:Info@Voxce.com" class="mlinks">Info@Voxce.com</a>
+			</div>
+			<div></div>
+			<!-- body right ends here -->
+
+		</div>
+		<!-- body content ends here -->
+
+
+	</div>
+
+</div>
+<!-- footer starts here -->
+<!--<%@include file="footer.jsp"%>-->
+<!-- footer ends here -->
+<!-- wrapper ends here -->
 </body>
 </html>

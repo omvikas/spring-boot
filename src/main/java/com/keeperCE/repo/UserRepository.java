@@ -1,17 +1,15 @@
 package com.keeperCE.repo;
 
+import com.keeperCE.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.keeperCE.model.User;
 
 import java.util.Optional;
 
 @Repository("userRepository")
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<Users, Long> {
 
-	Optional<User> findByEmail(String email);
-	Optional<User> findByName(String name);
+	Optional<Users> findByEmail(String email);
 
 
 }
